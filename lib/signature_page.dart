@@ -12,6 +12,8 @@ class SignaturePage extends StatefulWidget {
 }
 
 class _SignaturePageState extends State<SignaturePage> {
+  Uint8List _signatureBytes;
+
   final SignatureController _signatureController = SignatureController(
     penStrokeWidth: 5,
     penColor: Colors.black,
@@ -20,9 +22,12 @@ class _SignaturePageState extends State<SignaturePage> {
   void _clearSignature() => _signatureController.clear();
 
   void _sendSignature() async {
-    Uint8List _signatureBytes = await _signatureController.toPngBytes();
-    String _signatuteBase64 = base64Encode(_signatureBytes);
-    Clipboard.setData(ClipboardData(text: _signatuteBase64));
+    if (_signatureController.isNotEmpty) {
+      _signatureBytes = await _signatureController.toPngBytes();
+      // String _signatuteBase64 = base64Encode(_signatureBytes);
+      // Clipboard.setData(ClipboardData(text: _signatuteBase64));
+      setState(() {});
+    }
   }
 
   @override
@@ -45,7 +50,8 @@ class _SignaturePageState extends State<SignaturePage> {
                 child: Text('Submit'),
               ),
             ],
-          )
+          ),
+          _signatureBytes != null ? Image.memory(_signatureBytes) : Container()
         ],
       ),
     );
