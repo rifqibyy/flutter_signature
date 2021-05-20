@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter/material.dart';
 import 'package:signature/signature.dart';
+import 'signature_canvas.dart';
 
 class SignaturePage extends StatefulWidget {
   @override
@@ -31,24 +32,7 @@ class _SignaturePageState extends State<SignaturePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            height: 200,
-            width: 300,
-            padding: EdgeInsets.all(0),
-            child: Signature(
-              height: 200,
-              width: 280,
-              controller: _signatureController,
-              backgroundColor: Colors.white,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.black,
-              ),
-              color: Colors.white,
-            ),
-          ),
+          SignatureCanvas(signatureController: _signatureController),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
